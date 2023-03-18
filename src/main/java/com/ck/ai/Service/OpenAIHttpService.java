@@ -1,4 +1,4 @@
-package com.ck.ai.Server;
+package com.ck.ai.Service;
 
 
 import com.ck.ai.bean.ChatRequest;
@@ -18,7 +18,7 @@ import java.util.Collections;
 
 @Slf4j
 @Service
-public class OpenAIHttpClient {
+public class OpenAIHttpService {
     @Value("${open.ai.model}")
     private String openAiModel;
     @Value("${open.ai.url}")
