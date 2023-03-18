@@ -1,6 +1,6 @@
 package com.ck.ai.controller;
 
-import com.ck.ai.Service.OpenAIHttpService;
+import com.ck.ai.service.OpenAIHttpService;
 import com.ck.ai.bean.ChatResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.ck.ai.Service;
+package com.ck.ai.service;
 
 import com.ck.ai.bean.User;
 import io.jsonwebtoken.Claims;
