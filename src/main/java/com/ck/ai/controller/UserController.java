@@ -2,12 +2,13 @@ package com.ck.ai.controller;
 
 import com.ck.ai.bean.User;
 import com.ck.ai.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "user")
 @RestController
-@RequestMapping("/api")
 public class UserController {
 
     @Autowired
