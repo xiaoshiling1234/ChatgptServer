@@ -4,37 +4,45 @@ import com.ck.ai.bean.ResultResponse;
 import com.ck.ai.bean.entity.User;
 import com.ck.ai.dao.mapper.UserMapper;
 import com.ck.ai.service.TokenService;
+import com.ck.ai.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 @Api(tags = "user")
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @PostMapping("/register")
-    public void register(@RequestBody User user) {
-        userMapper.insert(user);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
+        try {
+            User registeredUser = userService.registerUser(user);
+            return ResponseEntity.ok(registeredUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public String generateToken(@RequestBody User user) {
-        // Authenticate user
-        User dbUser = userMapper.selectByUsername(user.getUsername());
-        if(dbUser != null && dbUser.getPassword().equals(user.getPassword())){
-            // Generate token
-            String token = tokenService.generateToken(user);
-
-            // Return token
-            return token;
+    public ResponseEntity<?> loginUser(@RequestParam("username_or_email") String usernameOrEmail, @RequestParam("password") String password) {
+        try {
+            User user = userService.loginUser(usernameOrEmail, password);
+            user.setToken(tokenService.generateToken(user));
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return null;
     }
+
 
     @GetMapping("/validateToken")
     public boolean validateToken(@RequestParam("token") String token) {

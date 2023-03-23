@@ -1,23 +1,30 @@
 package com.ck.ai.bean.entity;
 
+import com.ck.ai.bean.enums.Gender;
+import lombok.Data;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+@Data
 public class User {
+    private Long userId;
     private String username;
-
+    private String email;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String avatar;
+    private String phoneNumber;
+    private Gender gender;
+    private Date dateOfBirth;
+    private String location;
+    private String bio;
+    private boolean isActive = true;
+    private boolean isAdmin = false;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+    private String token;
+    // getter和setter方法省略
 }
