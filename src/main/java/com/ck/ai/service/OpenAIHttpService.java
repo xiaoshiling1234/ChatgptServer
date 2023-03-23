@@ -49,7 +49,9 @@ public class OpenAIHttpService {
             );
 
             String responseJson = responseEntity.getBody();
-            return ChatResponse.fromJson(responseJson);
+            ChatResponse chatResponse = ChatResponse.fromJson(responseJson);
+            System.out.println(chatResponse.getChoices()[0].getMessage().getContent());
+            return chatResponse;
         } catch (Exception e) {
             e.printStackTrace();
         }
