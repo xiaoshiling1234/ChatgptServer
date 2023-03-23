@@ -1,6 +1,6 @@
 package com.ck.ai.controller;
 
-import com.ck.ai.dao.entity.User;
+import com.ck.ai.bean.entity.User;
 import com.ck.ai.service.TokenService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;

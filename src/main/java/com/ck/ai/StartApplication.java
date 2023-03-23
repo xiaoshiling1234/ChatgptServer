@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableWebMvc
-@MapperScan(basePackages = "com.ck.ai.dao.mapper")
+@MapperScan("com.ck.ai.dao.mapper")
+
 public class StartApplication {
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);

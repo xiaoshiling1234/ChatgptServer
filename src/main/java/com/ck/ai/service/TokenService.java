@@ -1,6 +1,6 @@
 package com.ck.ai.service;
 
-import com.ck.ai.dao.entity.User;
+import com.ck.ai.bean.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
