@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class AccessDeniedHandler implements org.springframework.security.web.access.AccessDeniedHandler {
+public class RestAuthorizationAccessDeniedHandler implements org.springframework.security.web.access.AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException,
