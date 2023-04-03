@@ -2,19 +2,16 @@ package com.ck.ai.config;
 
 import com.ck.ai.service.SpringSecurityUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    MyAccessDeniedHandler myAccessDeniedHandler;
+    AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     PersistentTokenRepository persistentTokenRepository;
@@ -55,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 关闭csrf防护
         http.csrf().disable();
         //设置访问受限
-        http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         //Spring Security 中 Remember Me 为“记住我”功能，用户只需要在登录时添加 remember-me复选框，取值为true。Spring Security 会自动把用户信息存储到数据源中，以后就可以不登录进行访问
         http.rememberMe()
                 //失效时间，单位秒
