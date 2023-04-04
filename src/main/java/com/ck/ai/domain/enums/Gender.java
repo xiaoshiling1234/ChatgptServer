@@ -1,4 +1,4 @@
-package com.ck.ai.bean.enums;
+package com.ck.ai.domain.enums;
 
 public enum Gender {
     MALE("男"),

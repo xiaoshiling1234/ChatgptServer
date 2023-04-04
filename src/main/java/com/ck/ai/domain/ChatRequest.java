@@ -1,8 +1,5 @@
-package com.ck.ai.bean;
+package com.ck.ai.domain;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class ChatRequest {

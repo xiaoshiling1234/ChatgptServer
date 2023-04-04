@@ -1,6 +1,6 @@
-package com.ck.ai.bean.entity;
+package com.ck.ai.domain.entity;
 
-import com.ck.ai.bean.enums.Gender;
+import com.ck.ai.domain.enums.Gender;
 import lombok.Data;
 
 import java.sql.Date;

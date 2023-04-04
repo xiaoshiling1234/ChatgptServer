@@ -1,4 +1,4 @@
-package com.ck.ai.bean;
+package com.ck.ai.domain;
 
 import lombok.Data;
 

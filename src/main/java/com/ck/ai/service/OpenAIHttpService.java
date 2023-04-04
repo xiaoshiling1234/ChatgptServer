@@ -1,8 +1,8 @@
 package com.ck.ai.service;
 
 
-import com.ck.ai.bean.ChatRequest;
-import com.ck.ai.bean.ChatResponse;
+import com.ck.ai.domain.ChatRequest;
+import com.ck.ai.domain.ChatResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

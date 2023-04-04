@@ -1,6 +1,6 @@
 package com.ck.ai.dao.mapper;
 
-import com.ck.ai.bean.entity.User;
+import com.ck.ai.domain.entity.User;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

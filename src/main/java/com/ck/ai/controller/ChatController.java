@@ -1,7 +1,7 @@
 package com.ck.ai.controller;
 
 import com.ck.ai.service.OpenAIHttpService;
-import com.ck.ai.bean.ChatResponse;
+import com.ck.ai.domain.ChatResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

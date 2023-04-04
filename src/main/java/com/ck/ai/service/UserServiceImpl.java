@@ -1,6 +1,6 @@
 package com.ck.ai.service;
 
-import com.ck.ai.bean.entity.User;
+import com.ck.ai.domain.entity.User;
 import com.ck.ai.dao.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
