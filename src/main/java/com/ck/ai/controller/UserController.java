@@ -1,51 +1,63 @@
-//package com.ck.ai.controller;
-//
-//import com.ck.ai.bean.ResultResponse;
-//import com.ck.ai.bean.entity.User;
-//import com.ck.ai.dao.mapper.UserMapper;
-//import com.ck.ai.service.TokenService;
-//import com.ck.ai.service.UserService;
-//import io.swagger.annotations.Api;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.validation.Valid;
-//
-//@Api(tags = "user")
-//@RestController
-//@RequestMapping("/users")
-//public class UserController {
-//    @Autowired
-//    private UserService userService;
-//
-//    @PostMapping("/register")
-//    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
-//        try {
-//            User registeredUser = userService.registerUser(user);
-//            return ResponseEntity.ok(registeredUser);
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-//
-//    @Autowired
-//    private TokenService tokenService;
-//
-//    @PostMapping("/login")
-//    public ResponseEntity<?> loginUser(@RequestParam("username_or_email") String usernameOrEmail, @RequestParam("password") String password) {
-//        try {
-//            User user = userService.loginUser(usernameOrEmail, password);
-//            user.setToken(tokenService.generateToken(user));
-//            return ResponseEntity.ok(user);
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-//
-//
-//    @GetMapping("/validateToken")
-//    public boolean validateToken(@RequestParam("token") String token) {
-//        return tokenService.validateToken(token);
-//    }
-//}
+package com.ck.ai.controller;
+
+import com.ck.ai.domain.JsonResult;
+import com.ck.ai.service.UserService;
+import com.ck.ai.util.JWTUtil;
+import lombok.RequiredArgsConstructor;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * <p>
+ * 测试一下
+ * </p>
+ *
+ * @author duguotao
+ * @version 1.0.0
+ * @since Created in 2021/11/11
+ */
+@RestController
+@RequiredArgsConstructor
+public class UserController {
+
+    final UserService userService;
+    final HttpServletRequest httpServletRequest;
+
+    @GetMapping("/login")
+    public JsonResult<String> login(String username, String password) {
+        userService.login(username, password);
+        return JsonResult.OK(JWTUtil.createToken(username));
+    }
+
+    // -------------- 权限注解 ----------------
+    @GetMapping("/getM1")
+    @RequiresPermissions(value = "perm:hello")
+    public JsonResult<String> getM1() {
+        return JsonResult.OK("hello word");
+    }
+
+    @GetMapping("/getM2")
+    @RequiresPermissions(value = {"perm:hello", "perm:test"}, logical = Logical.OR)
+    public JsonResult<String> getM2() {
+        return JsonResult.OK("hello m2");
+    }
+
+
+    // -------------- 角色注解 ----------------
+    @GetMapping("/getM3")
+    @RequiresRoles(value = "admin")
+    public JsonResult<String> getM3() {
+        return JsonResult.OK("hello m3");
+    }
+
+    @GetMapping("/getM4")
+    @RequiresRoles(value = {"admin", "emp"}, logical = Logical.OR)
+    public JsonResult<String> getM4() {
+        return JsonResult.OK("hello m4");
+    }
+}
