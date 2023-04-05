@@ -1,5 +1,7 @@
 package com.ck.ai.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @version 1.0.0
  * @since Created in 2021/11/11
  */
+@Mapper
 public interface UserMapper {
     /**
      * 获得密码
