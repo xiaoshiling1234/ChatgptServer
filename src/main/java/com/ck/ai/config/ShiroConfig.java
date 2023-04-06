@@ -61,6 +61,7 @@ public class ShiroConfig {
         // 放行不需要权限认证的接口
         // swagger 静态资源 或websocket服务器链接接口 都可在此配置
         filterRuleMap.put("/login", "anon");
+        filterRuleMap.put("/register", "anon");
         filterRuleMap.put("/unauthorized/**", "anon");
 
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);

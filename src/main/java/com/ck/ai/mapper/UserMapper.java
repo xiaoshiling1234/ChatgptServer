@@ -1,5 +1,6 @@
 package com.ck.ai.mapper;
 
+import com.ck.ai.domain.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -40,5 +41,9 @@ public interface UserMapper {
      * 用户登录
      */
     int auth(String username);
+    User selectByUsername(String username);
+    User selectByEmail(String email);
+    int insert(User user);
+    int updateUserByUsername(User user);
 }
 

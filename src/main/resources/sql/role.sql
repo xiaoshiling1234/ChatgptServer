@@ -32,9 +32,9 @@ CREATE TABLE `role` (
 -- Records of role
 -- ----------------------------
 BEGIN;
-INSERT INTO `role` VALUES (1, 'admin', 'perm:hello');
-INSERT INTO `role` VALUES (2, 'admin', 'perm:love');
-INSERT INTO `role` VALUES (3, 'emp', 'perm:test');
+INSERT INTO `role` VALUES (1, 'admin', 'perm:admin');
+INSERT INTO `role` VALUES (2, 'admin', 'perm:test');
+INSERT INTO `role` VALUES (3, 'temp', 'perm:chat');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

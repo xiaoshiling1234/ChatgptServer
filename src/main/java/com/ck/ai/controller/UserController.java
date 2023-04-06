@@ -1,14 +1,18 @@
 package com.ck.ai.controller;
 
 import com.ck.ai.domain.JsonResult;
+import com.ck.ai.domain.entity.User;
 import com.ck.ai.service.UserService;
 import com.ck.ai.util.JWTUtil;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,30 +38,31 @@ public class UserController {
         return JsonResult.OK(JWTUtil.createToken(username));
     }
 
-    // -------------- 权限注解 ----------------
-    @GetMapping("/getM1")
-    @RequiresPermissions(value = "perm:hello")
-    public JsonResult<String> getM1() {
-        return JsonResult.OK("hello word");
+    @PostMapping("/register")
+    public JsonResult registerUser(@RequestBody User user) {
+        User existingUser = userService.getUserByUsername(user.getUsername());
+        if (existingUser != null) {
+            return JsonResult.Fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Username already exists");
+        }
+        int rowsInserted = userService.addUser(user);
+        if (rowsInserted > 0) {
+            return JsonResult.OK("User registered successfully");
+        }
+        return JsonResult.Fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Failed to register user");
     }
 
-    @GetMapping("/getM2")
-    @RequiresPermissions(value = {"perm:hello", "perm:test"}, logical = Logical.OR)
-    public JsonResult<String> getM2() {
-        return JsonResult.OK("hello m2");
-    }
-
-
-    // -------------- 角色注解 ----------------
-    @GetMapping("/getM3")
-    @RequiresRoles(value = "admin")
-    public JsonResult<String> getM3() {
-        return JsonResult.OK("hello m3");
-    }
-
-    @GetMapping("/getM4")
-    @RequiresRoles(value = {"admin", "emp"}, logical = Logical.OR)
-    public JsonResult<String> getM4() {
-        return JsonResult.OK("hello m4");
+    @PostMapping("/update")
+    public JsonResult updateUser(
+            @ApiParam(name = "token", value = "token", required = true)
+            @RequestHeader(name = "token") String token,
+            @RequestBody User user) {
+        String principal = (String)SecurityUtils.getSubject().getPrincipal();
+        String username = JWTUtil.getUsername(principal);
+        user.setUsername(username);
+        int rowsUpdated = userService.updateUserByUsername(user);
+        if (rowsUpdated > 0) {
+            return JsonResult.OK("User updated successfully");
+        }
+        return JsonResult.Fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Failed to update user");
     }
 }

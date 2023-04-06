@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ck.ai.mapper.UserMapper">
+    <insert id="insert">
+        INSERT INTO user (username, password, email, nickname, free_chat_times, role, ban, created_at, updated_at)
+        VALUES (#{username}, #{password}, #{email}, #{nickname}, #{freeChatTimes}, #{role}, #{ban}, #{createdAt}, #{updatedAt})
+    </insert>
+    <update id="updateUserByUsername">
+        UPDATE user SET
+        password = IFNULL(#{password},password),
+        email = IFNULL(#{email},email),
+        nickname = IFNULL(#{nickname},nickname),
+        role = IFNULL(#{role},role),
+        free_chat_times = IFNULL(#{freeChatTimes},free_chat_times)
+        WHERE username = #{username}
+    </update>
 
     <select id="getPassword" parameterType="String" resultType="String">
         SELECT password
@@ -37,5 +50,11 @@
                  inner join role r on
                 u.role = r.role
                 and u.username = #{username}
+    </select>
+    <select id="selectByUsername" resultType="com.ck.ai.domain.entity.User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+    <select id="selectByEmail" resultType="com.ck.ai.domain.entity.User">
+        SELECT * FROM user WHERE email = #{email}
     </select>
 </mapper>

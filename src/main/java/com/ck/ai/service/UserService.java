@@ -1,5 +1,6 @@
 package com.ck.ai.service;
 
+import com.ck.ai.domain.entity.User;
 import com.ck.ai.domain.exception.FailRequestException;
 import com.ck.ai.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,21 @@ public class UserService {
         if (count == 0) {
             throw new FailRequestException("用户不存在或用户被禁用");
         }
+    }
+
+    public User getUserByUsername(String username) {
+        return userMapper.selectByUsername(username);
+    }
+
+    public User getUserByEmail(String email) {
+        return userMapper.selectByEmail(email);
+    }
+
+    public int addUser(User user) {
+        return userMapper.insert(user);
+    }
+
+    public int updateUserByUsername(User user) {
+        return userMapper.updateUserByUsername(user);
     }
 }
