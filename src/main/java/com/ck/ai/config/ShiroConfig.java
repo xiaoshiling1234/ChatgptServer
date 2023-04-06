@@ -46,6 +46,13 @@ public class ShiroConfig {
         // 所有请求通过我们自己的JWT Filter
         filterRuleMap.put("/**", "jwt");
 
+
+        // 放行Swagger相关访问
+        filterRuleMap.put("/docs", "anon");
+        filterRuleMap.put("/swagger-ui.html", "anon");
+        filterRuleMap.put("/webjars/springfox-swagger-ui/**", "anon");
+        filterRuleMap.put("/swagger-resources/**", "anon");
+        filterRuleMap.put("/v2/api-docs", "anon");
         //内置过滤器，可以实现权限相关的拦截器
         //  user：如果使用remember的功能才能直接访问
         //  perms：必须得到资源权限才可访问
