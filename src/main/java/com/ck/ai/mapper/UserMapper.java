@@ -45,5 +45,7 @@ public interface UserMapper {
     User selectByEmail(String email);
     int insert(User user);
     int updateUserByUsername(User user);
+
+    int updateFreeChatTime();
 }
 

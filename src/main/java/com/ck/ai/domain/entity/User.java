@@ -1,5 +1,6 @@
 package com.ck.ai.domain.entity;
 
+import com.ck.ai.domain.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,8 +14,9 @@ public class User {
     private String email;
     private String nickname;
     private Integer freeChatTimes;
-    private String role;
+    private RoleEnum role;
     private Integer ban;
+    private Date expireDate;
     private Date createdAt;
     private Date updatedAt;
 }

@@ -5,6 +5,7 @@ import com.ck.ai.domain.ChatRequest;
 import com.ck.ai.domain.ChatResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
