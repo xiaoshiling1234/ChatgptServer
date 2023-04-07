@@ -20,7 +20,11 @@
         free_chat_times = 30
         WHERE role = 'TEMP'
     </update>
-
+    <update id="updateVipStatus">
+        UPDATE user SET
+        role = 'TEMP'
+        WHERE role != 'TEMP' and expire_date &lt; now()
+    </update>
     <select id="getPassword" parameterType="String" resultType="String">
         SELECT password
         FROM user

@@ -28,7 +28,6 @@ public class OpenAIHttpService {
     private String OPENAI_API_KEY;
 
     public ChatResponse chat(String content) {
-        try {
             RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
 
             HttpHeaders headers = new HttpHeaders();
@@ -53,10 +52,6 @@ public class OpenAIHttpService {
             ChatResponse chatResponse = ChatResponse.fromJson(responseJson);
             System.out.println(chatResponse.getChoices()[0].getMessage().getContent());
             return chatResponse;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     
 }

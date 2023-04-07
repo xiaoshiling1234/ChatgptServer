@@ -47,5 +47,7 @@ public interface UserMapper {
     int updateUserByUsername(User user);
 
     int updateFreeChatTime();
+
+    int updateVipStatus();
 }
 

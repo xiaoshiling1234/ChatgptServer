@@ -1,15 +1,19 @@
 package com.ck.ai.schedule;
 
+import com.ck.ai.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * todo:每天刷新Vip状态
+ * 每天刷新Vip状态
  */
 @Component
 public class FreshVipStatus {
-    @Scheduled(fixedDelay = 5000) // 每 5 秒执行一次
+    @Autowired
+    UserMapper userMapper;
+    @Scheduled(cron = "0 */1 * * *  ?") // cron 表达式，每隔1分钟执行一次
     public void doTask() {
-        // 执行定时任务的逻辑
+        userMapper.updateVipStatus();
     }
 }
