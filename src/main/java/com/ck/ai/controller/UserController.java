@@ -1,8 +1,10 @@
 package com.ck.ai.controller;
 
 import com.ck.ai.domain.JsonResult;
+import com.ck.ai.domain.entity.RegisterUserInfo;
 import com.ck.ai.domain.entity.User;
 import com.ck.ai.domain.enums.RoleEnum;
+import com.ck.ai.service.SmsService;
 import com.ck.ai.service.UserService;
 import com.ck.ai.service.VIPService;
 import com.ck.ai.util.JWTUtil;
@@ -23,9 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
- * <p>
- * 测试一下
- * </p>
+ * username就是电话号码
  *
  * @author duguotao
  * @version 1.0.0
@@ -44,12 +44,32 @@ public class UserController {
         return JsonResult.OK(JWTUtil.createToken(username));
     }
 
-    @PostMapping("/register")
-    public JsonResult registerUser(@RequestBody User user) {
-        User existingUser = userService.getUserByUsername(user.getUsername());
+    @Autowired
+    SmsService smsService;
+
+    /**
+     * 后端先生成验证码
+     * @param registerUserInfo
+     * @return
+     */
+    @PostMapping("/sendVerifyCode")
+    public JsonResult sendVerifyCode(@RequestBody RegisterUserInfo registerUserInfo) {
+        User existingUser = userService.getUserByUsername(registerUserInfo.getUsername());
         if (existingUser != null) {
             return JsonResult.Fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Username already exists");
         }
+        return smsService.sendSms(registerUserInfo.getUsername(),registerUserInfo.getVerificationCode());
+    }
+
+    @PostMapping("/register")
+    public JsonResult registerUser(@RequestBody RegisterUserInfo registerUserInfo) {
+        User existingUser = userService.getUserByUsername(registerUserInfo.getUsername());
+        if (existingUser != null) {
+            return JsonResult.Fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Username already exists");
+        }
+        User user = new User();
+        user.setUsername(registerUserInfo.getUsername());
+        user.setPassword(registerUserInfo.getPassword());
         user.setRole(RoleEnum.TEMP);
         user.setNickname("user:"+ RandomStringUtils.randomNumeric(6));
         int rowsInserted = userService.addUser(user);

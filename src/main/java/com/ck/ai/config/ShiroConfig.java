@@ -62,6 +62,7 @@ public class ShiroConfig {
         // swagger 静态资源 或websocket服务器链接接口 都可在此配置
         filterRuleMap.put("/login", "anon");
         filterRuleMap.put("/register", "anon");
+        filterRuleMap.put("/sendVerifyCode", "anon");
         filterRuleMap.put("/unauthorized/**", "anon");
 
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);

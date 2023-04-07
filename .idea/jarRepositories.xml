@@ -21,5 +21,10 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="tencentcloud-sdk-java" />
+      <option name="name" value="Tencent Cloud SDK Java" />
+      <option name="url" value="https://maven.tencentcloudapi.com/nexus/repository/maven-public/" />
+    </remote-repository>
   </component>
 </project>

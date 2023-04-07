@@ -1,0 +1,8 @@
+tencent:
+  endpoint: sms.tencentcloudapi.com
+  secretId: dsadsadas
+  secretKey: dsadsa
+  sms:
+    smsSdkAppId: dsadas
+    signName: chatbobo
+    templateId: 模板1
