@@ -48,6 +48,7 @@ public class ShiroConfig {
 
 
         // 放行Swagger相关访问
+        filterRuleMap.put("/swagger-ui/**", "anon");
         filterRuleMap.put("/docs", "anon");
         filterRuleMap.put("/swagger-ui.html", "anon");
         filterRuleMap.put("/webjars/springfox-swagger-ui/**", "anon");
